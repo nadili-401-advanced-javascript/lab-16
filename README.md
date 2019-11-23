@@ -15,7 +15,9 @@
 
 #### Running the app
 * `node server/server.js`
+* `node logger/logger.js`
 * `node file-changer/app.js [path to file]`
+
 
 #### Tests
 * Unit Tests: 'npm test'

@@ -14,11 +14,14 @@ socket.on('connect', () => {
 });
 
 // Connect to TCP server
-socket.connect(config, () => {});
+socket.connect(config, () => {
+  console.log('connected to server!');
+});
 
 socket.on('close', () => {
   console.log('I am closing!');
 });
+  
 
 // Listen for the 'data' event, and call the anon function specified
 socket.on('data', data => {

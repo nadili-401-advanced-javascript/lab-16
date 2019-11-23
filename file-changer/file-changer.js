@@ -2,8 +2,17 @@
 
 const fs = require('fs');
 const util = require('util');
-// const emitter = require('./emitter.js');
 const faker = require('faker');
+const net = require('net');
+
+const socket = new net.Socket();
+
+let config = {
+  port: 3001,
+  host: 'localhost',
+};
+
+socket.connect(config, () => {});
 
 const rf = typeof fs.readFile === 'function' ?
   util.promisify(fs.readFile) :
@@ -31,9 +40,25 @@ const writeFile = async (file) => {
 
 //alter file 
 const alterFile = async (file) => {
-  
-  await readFile(file);
+
+  let data = await readFile(file);
   await writeFile(file);
+
+  //Log data before alter file content
+  setTimeout(async function() {
+    socket.write(data);
+  }, 2000);
+
+  let newData = await readFile(file);
+
+  //Log data after alter file content
+  setTimeout(async function() {
+    socket.write(newData);
+  }, 2000);
+  
+  setTimeout(function() {
+    socket.destroy();
+  }, 4000);
 };
 
 module.exports = { readFile, writeFile, alterFile };
