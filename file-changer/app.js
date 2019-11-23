@@ -1,17 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-
-const alterFile = (file) => {
-  fs.readFile( file, (err, data) => {
-    if(err) { throw err; }
-    let text = data.toString().toUpperCase();
-    fs.writeFile( file, Buffer.from(text), (err, data) => {
-      if(err) { throw err; }
-      console.log(`${file} saved`);
-    });
-  });
-};
+const FCH = require('./file-changer.js');
 
 let file = process.argv.slice(2).shift();
-alterFile(file);
+
+FCH.alterFile(file);
+// console.log(`${file} content updated!`);
